@@ -14,7 +14,10 @@
     <script src="~/scripts/jquery-3.1.1.js"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script>
+  
+    <script src="https://code.highcharts.com/highcharts-3d.js"></script>
+
+     <script>
 
         $(function () {
             Highcharts.chart('yearlysales', {
@@ -40,33 +43,98 @@
             });
         });
 
-        //Product_Wise_Sales
+               // Production Details
+
         $(function () {
-            Highcharts.chart('Product_Wise_Sales', {
+            Highcharts.chart('Daily_Production', {
                 chart: {
-                    type: 'column'
+                    type: 'pie',
+                    options3d: {
+                        enabled: true,
+                        alpha: 45
+                    }
                 },
                 title: {
-                    text: 'Product Wise Sales'
+                    text: 'Production Details'
                 },
-                xAxis: {
-                    categories: ['2015-16', '2016-17']
-                },
-                credits: {
-                    enabled: false
+                
+                plotOptions: {
+                    pie: {
+                        innerSize: 100,
+                        depth: 45
+                    }
                 },
                 series: [{
-                    name: 'Dry Roasted Almond 2-4 mm',
-                    data: [30822, 40822]
-                }, {
-                    name: 'Dry Roasted Cashew 2-4 mm',
-                    data: [208240, 408240]
+                    name: 'Produced Quantity',
+                    data: [
+                        ['Dry Roasted Apricot 4-8 mm', 4768.8],
+                        ['Dry Roasted Cashew 2-4 mm', 4734.44],
+                        ['Dry Roasted Almond 4-12 mm', 10305.52],
+                        ['Dry Roasted LWP', 10585.05],
+                        ['Dry Roasted Almond 4-12 mm', 5210.28],
+                        ['Dry Roasted Almond 4-8 mm', 11207.2],
+                        ['Dry Roasted Almond Wholes', 3819.660],
+                        ['Dry Roasted and salted Cashew 10-18 mm', 6687.37],
+                        ['Dry Roasted and salted Cashew 10-18 mm', 11476.18]
+                    ]
                 }]
             });
         });
 
+         //Product_Wise_Sales
+        $(function () {
+            // Set up the chart
+            var chart = new Highcharts.Chart({
+                chart: {
+                    renderTo: 'Product_Wise_Sales',
+                    type: 'column',
+                    options3d: {
+                        enabled: true,
+                        alpha: 15,
+                        beta: 15,
+                        depth: 50,
+                        viewDistance: 25
+                    }
+                },
+                title: {
+                    text: 'Product Wise Sales'
+                },
+               
+                plotOptions: {
+                    column: {
+                        depth: 25
+                    }
+                },
+                series: [{
+                    data: [
+                        ['Dry Roasted Apricot 4-8 mm', 4768.8],
+                        ['Dry Roasted Cashew 2-4 mm', 4734.44],
+                        ['Dry Roasted Almond 4-12 mm', 10305.52],
+                        ['Dry Roasted LWP', 10585.05],
+                        ['Dry Roasted Almond 4-12 mm', 5210.28],
+                        ['Dry Roasted Almond 4-8 mm', 11207.2],
+                        ['Dry Roasted Almond Wholes', 3819.660],
+                        ['Dry Roasted and salted Cashew 10-18 mm', 6687.37],
+                        ['Dry Roasted and salted Cashew 10-18 mm', 11476.18]
+                    ]
+                }]
+            });
 
+            function showValues() {
+                $('#alpha-value').html(chart.options.chart.options3d.alpha);
+                $('#beta-value').html(chart.options.chart.options3d.beta);
+                $('#depth-value').html(chart.options.chart.options3d.depth);
+            }
 
+            // Activate the sliders
+            $('#sliders input').on('input change', function () {
+                chart.options.chart.options3d[this.id] = this.value;
+                showValues();
+                chart.redraw(false);
+            });
+
+            showValues();
+        });
     </script>
    
 </head>
@@ -77,10 +145,31 @@
 
 
     <div class="row">
-        <div class="col-md-6"><div id="yearlysales" style="min-width: 155px; height: 400px; margin: 0 auto"></div></div>
+        <div class="col-md-3"><div id="yearlysales" style="min-width: 155px; height: 400px; margin: 0 auto"></div></div>
         <div class="col-md-6"><div id="Product_Wise_Sales" style="min-width: 155px; height: 400px; margin: 0 auto"></div></div>
+        <div class="col-md-3"><div id="sliders"  style="min-width: 155px; margin-top:100px !important;height: 400px; margin: 0 auto">
+         
+                <table>
+                    <tr>
+                        <td>Alpha Angle</td>
+                        <td><input id="alpha" type="range" min="0" max="45" value="15" /> <span id="alpha-value" class="value"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Beta Angle</td>
+                        <td><input id="beta" type="range" min="-45" max="45" value="15" /> <span id="beta-value" class="value"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Depth</td>
+                        <td><input id="depth" type="range" min="20" max="100" value="50" /> <span id="depth-value" class="value"></span></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
     </div>
-    
-  
+    <div>
+        <div class="col-md-12"><div id="Daily_Production" style="min-width: 155px; height: 400px; margin: 0 auto"></div></div>
+     </div>
+   
+
 </body>
 </html>
