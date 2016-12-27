@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WICCMIS", "WICCMIS\WICCMIS.csproj", "{FEB48D13-3543-4F96-BADF-33F58860600B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WICCDAL", "WICCDAL\WICCDAL.csproj", "{5B023F18-57B8-453F-932D-F84726110F81}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WICCDomain", "WICCDomain\WICCDomain.csproj", "{C631B275-B577-4C77-BD7E-D5FC544FB8B7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{FEB48D13-3543-4F96-BADF-33F58860600B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FEB48D13-3543-4F96-BADF-33F58860600B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FEB48D13-3543-4F96-BADF-33F58860600B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B023F18-57B8-453F-932D-F84726110F81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B023F18-57B8-453F-932D-F84726110F81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B023F18-57B8-453F-932D-F84726110F81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B023F18-57B8-453F-932D-F84726110F81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C631B275-B577-4C77-BD7E-D5FC544FB8B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C631B275-B577-4C77-BD7E-D5FC544FB8B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C631B275-B577-4C77-BD7E-D5FC544FB8B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C631B275-B577-4C77-BD7E-D5FC544FB8B7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

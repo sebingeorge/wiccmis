@@ -138,6 +138,16 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WICCDAL\WICCDAL.csproj">
+      <Project>{5b023f18-57b8-453f-932d-f84726110f81}</Project>
+      <Name>WICCDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WICCDomain\WICCDomain.csproj">
+      <Project>{c631b275-b577-4c77-bd7e-d5fc544fb8b7}</Project>
+      <Name>WICCDomain</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
