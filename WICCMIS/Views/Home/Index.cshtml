@@ -1,6 +1,26 @@
-﻿
+﻿@model WICCDomain.Dashboard
 @{
     Layout = null;
+}
+
+@{
+    string Productions = string.Empty;
+
+
+    foreach (var item in Model.DailyProductions)
+    {
+
+        if (Productions == string.Empty)
+        {
+            Productions = "'" + item.Production + "'";
+        }
+        else
+        {
+            Productions += ",'" + item.Production + "'";
+        }
+
+    }
+
 }
 
 <!DOCTYPE html>
