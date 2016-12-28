@@ -14,7 +14,6 @@
     <script src="~/scripts/jquery-3.1.1.js"></script>
     <script src="~/scripts/highcharts.js"></script>
     <script src="~/scripts/exporting.js"></script>
-  
     <script src="~/scripts/highcharts-3d.js"></script>
 
      <script>
@@ -135,6 +134,36 @@
 
             showValues();
         });
+
+        $(function () {
+            Highcharts.chart('SaleOrder', {
+                chart: {
+                    type: 'spline'
+                },
+                title: {
+                    text: 'Sale Orders'
+                },
+                xAxis: {
+                    categories: ['November', 'December']
+                },
+                yAxis: {
+                    title: {
+                        text: 'Sale Order Amount'
+                    }
+                    },
+                credits: {
+                    enabled: false
+                },
+                series: [{
+                                name: 'Local',
+                                data: [30822, 140822]
+                            }, {
+                                name: 'Export',
+                                data: [208240, 1408240]
+                }]
+            });
+        });
+    
     </script>
    
 </head>
@@ -167,7 +196,9 @@
         </div>
     </div>
     <div>
-        <div class="col-md-12"><div id="Daily_Production" style="min-width: 155px; height: 400px; margin: 0 auto"></div></div>
+        <div class="col-md-7"><div id="Daily_Production" style="min-width: 155px; height: 400px; margin: 0 auto"></div></div>
+        <div class="col-md-5"><div id="SaleOrder" style="min-width: 155px; height: 400px; margin: 0 auto"></div></div>
+
      </div>
    
 
