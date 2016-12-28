@@ -17,7 +17,7 @@ namespace WICCDAL
             return dataConnection;
         }
 
-        public IEnumerable<DailyProduction> GetDailyProduction(int OrganizationId)
+        public IEnumerable<DailyProduction> GetDailyProduction()
         {
             using (IDbConnection connection = OpenConnection(dataConnection))
             {
