@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace WICCDomain
 {
-    public class Class1
+    public class DailyProduction
     {
+        public string ItemName { get; set; }
+        public decimal Production { get; set; }
     }
 }

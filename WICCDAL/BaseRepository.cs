@@ -7,7 +7,7 @@ using WICCDomain;
 using System.Configuration;
 using System.Data;
 
-namespace ArabErp.DAL
+namespace WICCDAL
 {
    public class BaseRepository
     {
