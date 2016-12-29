@@ -21,8 +21,8 @@ namespace WICCDAL
         {
             using (IDbConnection connection = OpenConnection(dataConnection))
             {
-                string sql = @"@SELECT 
-      ,[itemName], 0  Production
+                string sql = @"SELECT 
+      [itemName], 0  Production
 
         FROM[WICC].[dbo].[mstItem]";
 
