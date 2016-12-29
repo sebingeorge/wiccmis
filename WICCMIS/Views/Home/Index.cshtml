@@ -5,20 +5,125 @@
 
 @{
     string Productions = string.Empty;
+    string SoMonth = string.Empty;
+    string SoAmount = string.Empty;
+    string SoLocalAmount = string.Empty;
+    string PoMonth = string.Empty;
+    string PoAmount = string.Empty;
+    string SMonth = string.Empty;
+    string SAmount = string.Empty;
+    string SLocalAmount = string.Empty;
+    string itemName = string.Empty;
+
 
 
     foreach (var item in Model.DailyProductions)
     {
-
-        if (Productions == string.Empty)
+        if (itemName == string.Empty)
         {
-            Productions = "'" + item.Production + "'";
+            itemName = "'" + item.ItemName + "'";
         }
         else
         {
-            Productions += ",'" + item.Production + "'";
+            itemName += ",'" + item.ItemName + "'";
+        }
+        if (Productions == string.Empty)
+        {
+            Productions = "" + item.Production + "";
+        }
+        else
+        {
+            Productions += "," + item.Production + "";
         }
 
+    }
+
+    foreach (var item in Model.ExportSaleOrder)
+    {
+
+        if (SoMonth == string.Empty)
+        {
+            SoMonth = "'" + item.tpoDate + "'";
+        }
+        else
+        {
+            SoMonth += ",'" + item.tpoDate + "'";
+        }
+        if (SoAmount == string.Empty)
+        {
+            SoAmount = "" + item.TotalAmount + "";
+        }
+        else
+        {
+            SoAmount += "," + item.TotalAmount + "";
+        }
+    }
+    foreach (var item in Model.LocalSaleOrder)
+    {
+
+        if (SoLocalAmount == string.Empty)
+        {
+            SoLocalAmount = "" + item.TotalAmount + "";
+        }
+        else
+        {
+            SoLocalAmount += "," + item.TotalAmount + "";
+        }
+    }
+
+    // Purchase Order
+    foreach (var item in Model.PurchaseOrder)
+    {
+
+        if (PoMonth == string.Empty)
+        {
+            PoMonth = "'" + item.poDate + "'";
+        }
+        else
+        {
+            PoMonth += ",'" + item.poDate + "'";
+        }
+        if (PoAmount == string.Empty)
+        {
+            PoAmount = "" + item.TotalAmount + "";
+        }
+        else
+        {
+            PoAmount += "," + item.TotalAmount + "";
+        }
+    }
+    // Sales
+    foreach (var item in Model.ExportSale)
+    {
+
+        if (SMonth == string.Empty)
+        {
+            SMonth = "'" + item.InvoiceDate + "'";
+        }
+        else
+        {
+            SMonth += ",'" + item.InvoiceDate + "'";
+        }
+        if (SAmount == string.Empty)
+        {
+            SAmount = "" + item.TotalAmount + "";
+        }
+        else
+        {
+            SAmount += "," + item.TotalAmount + "";
+        }
+    }
+    foreach (var item in Model.LocalSale)
+    {
+
+        if (SLocalAmount == string.Empty)
+        {
+            SLocalAmount = "" + item.TotalAmount + "";
+        }
+        else
+        {
+            SLocalAmount += "," + item.TotalAmount + "";
+        }
     }
 
 }
@@ -37,153 +142,205 @@
     <script src="~/scripts/highcharts-3d.js"></script>
 
      <script>
+         // Purchase order
+         $(function () {
+             Highcharts.chart('Purchase Order', {
+                 chart: {
+                     type: 'column'
+                 },
+                 title: {
+                     text: 'Purchase Order'
+                 },
+                 subtitle: {
+                     text: 'Monthly Purchase Order summary',
+                     x: -20
+                 },
+                 xAxis: {
+                     categories: [@Html.Raw(PoMonth)]
+                     //categories: ['2015-16', '2016-17']
+                 },
+                 yAxis: {
+                     title: {
+                         text: 'Purchase Order Amount'
+                     }
+                 },
+                 credits: {
+                     enabled: false
+                 },
+                 series: [{
+                     name: 'Purchase',
+                     data: [@PoAmount]
+                 }]
+             });
+         });
+         // Sale Order
+         $(function () {
+             Highcharts.chart('SaleOrder', {
+                 chart: {
+                     type: 'spline'
+                 },
+                 title: {
+                     text: 'Sale Orders'
+                 },
+                 subtitle: {
+                     text: 'Monthly Sale order summary',
+                 },
+                 xAxis: {
+                     categories: [@Html.Raw(SoMonth)]
+                 },
+                 yAxis: {
+                     title: {
+                         text: 'Sale Order Amount'
+                     }
+                 },
+                 credits: {
+                     enabled: false
+                 },
+                 series: [
+                     {
+                         name: 'Local',
+                         data: [@SoLocalAmount]
+                     },
+                       {
+                           name: 'Export',
+                           data: [@SoAmount]
+                       }]
+             });
+         });
 
-        $(function () {
-            Highcharts.chart('yearlysales', {
-                chart: {
-                    type: 'column'
-                },
-                title: {
-                    text: 'Yearly Sales'
-                },
-                xAxis: {
-                    categories: ['2015-16', '2016-17']
-                },
-                credits: {
-                    enabled: false
-                },
-                series: [{
-                    name: 'Local',
-                    data: [30822, 40822]
-                }, {
-                    name: 'Export',
-                    data: [208240, 408240]
-                }]
-            });
-        });
+         // Sales
+         $(function () {
+             Highcharts.chart('Sales', {
+                 chart: {
+                     type: 'spline'
+                 },
+                 title: {
+                     text: 'Sales'
+                 },
+                 subtitle: {
+                     text: 'Monthly Sales Summary',
+                 },
+                 xAxis: {
+                     categories: [@Html.Raw(SMonth)]
+                 },
+                 yAxis: {
+                     title: {
+                         text: 'Amount'
+                     }
+                 },
+                 credits: {
+                     enabled: false
+                 },
+                 series: [
+                     {
+                         name: 'Local',
+                         data: [@SLocalAmount]
+                     }
+                     ,
+                       {
+                           name: 'Export',
+                           data: [@SAmount]
+                       }
+                 ]
+             });
+         });
 
-               // Production Details
+         // Production Details
+         $(function () {
+             Highcharts.chart('Daily_Production', {
+                 chart: {
+                     type: 'column'
+                 },
+                 title: {
+                     text: 'Production Summary'
+                 },
+               
+                 xAxis: {
+                     categories: [@Html.Raw(itemName )]
+                 },
+                 yAxis: {
+                     title: {
+                         text: 'Quantity in Kg'
+                       }
+                 },
+               
+                 credits: {
+                     enabled: false
+                 },
+                 plotOptions: {
+                     column: {
+                         color: '#1C2833    '
+                     }
+                 },
+                 series: [
+                    
+                       {
+                          name: 'Product',
+                          data: [@Productions]
+                           
+                       }
+                 ]
+             });
+         });
 
-        $(function () {
-            Highcharts.chart('Daily_Production', {
-                chart: {
-                    type: 'pie',
-                    options3d: {
-                        enabled: true,
-                        alpha: 45
-                    }
-                },
-                title: {
-                    text: 'Production Details'
-                },
-                
-                plotOptions: {
-                    pie: {
-                        innerSize: 100,
-                        depth: 45
-                    }
-                },
-                series: [{
-                    name: 'Produced Quantity',
-                    data: [
-                        ['Dry Roasted Apricot 4-8 mm', 4768.8],
-                        ['Dry Roasted Cashew 2-4 mm', 4734.44],
-                        ['Dry Roasted Almond 4-12 mm', 10305.52],
-                        ['Dry Roasted LWP', 10585.05],
-                        ['Dry Roasted Almond 4-12 mm', 5210.28],
-                        ['Dry Roasted Almond 4-8 mm', 11207.2],
-                        ['Dry Roasted Almond Wholes', 3819.660],
-                        ['Dry Roasted and salted Cashew 10-18 mm', 6687.37],
-                        ['Dry Roasted and salted Cashew 10-18 mm', 11476.18]
-                    ]
-                }]
-            });
-        });
+
 
          //Product_Wise_Sales
-        $(function () {
-            // Set up the chart
-            var chart = new Highcharts.Chart({
-                chart: {
-                    renderTo: 'Product_Wise_Sales',
-                    type: 'column',
-                    options3d: {
-                        enabled: true,
-                        alpha: 15,
-                        beta: 15,
-                        depth: 50,
-                        viewDistance: 25
-                    }
-                },
-                title: {
-                    text: 'Product Wise Sales'
-                },
-               
-                plotOptions: {
-                    column: {
-                        depth: 25
-                    }
-                },
-                series: [{
-                    data: [
-                        ['Dry Roasted Apricot 4-8 mm', 4768.8],
-                        ['Dry Roasted Cashew 2-4 mm', 4734.44],
-                        ['Dry Roasted Almond 4-12 mm', 10305.52],
-                        ['Dry Roasted LWP', 10585.05],
-                        ['Dry Roasted Almond 4-12 mm', 5210.28],
-                        ['Dry Roasted Almond 4-8 mm', 11207.2],
-                        ['Dry Roasted Almond Wholes', 3819.660],
-                        ['Dry Roasted and salted Cashew 10-18 mm', 6687.37],
-                        ['Dry Roasted and salted Cashew 10-18 mm', 11476.18]
-                    ]
-                }]
-            });
+         $(function () {
+             // Set up the chart
+             var chart = new Highcharts.Chart({
+                 chart: {
+                     renderTo: 'Product_Wise_Sales',
+                     type: 'column',
+                     options3d: {
+                         enabled: true,
+                         alpha: 15,
+                         beta: 15,
+                         depth: 50,
+                         viewDistance: 25
+                     }
+                 },
+                 title: {
+                     text: 'Product Wise Sales'
+                 },
 
-            function showValues() {
-                $('#alpha-value').html(chart.options.chart.options3d.alpha);
-                $('#beta-value').html(chart.options.chart.options3d.beta);
-                $('#depth-value').html(chart.options.chart.options3d.depth);
-            }
+                 plotOptions: {
+                     column: {
+                         depth: 25
+                     }
+                 },
+                 series: [{
+                     data: [
+                         ['Dry Roasted Apricot 4-8 mm', 4768.8],
+                         ['Dry Roasted Cashew 2-4 mm', 4734.44],
+                         ['Dry Roasted Almond 4-12 mm', 10305.52],
+                         ['Dry Roasted LWP', 10585.05],
+                         ['Dry Roasted Almond 4-12 mm', 5210.28],
+                         ['Dry Roasted Almond 4-8 mm', 11207.2],
+                         ['Dry Roasted Almond Wholes', 3819.660],
+                         ['Dry Roasted and salted Cashew 10-18 mm', 6687.37],
+                         ['Dry Roasted and salted Cashew 10-18 mm', 11476.18]
+                     ]
+                 }]
+             });
 
-            // Activate the sliders
-            $('#sliders input').on('input change', function () {
-                chart.options.chart.options3d[this.id] = this.value;
-                showValues();
-                chart.redraw(false);
-            });
+             function showValues() {
+                 $('#alpha-value').html(chart.options.chart.options3d.alpha);
+                 $('#beta-value').html(chart.options.chart.options3d.beta);
+                 $('#depth-value').html(chart.options.chart.options3d.depth);
+             }
 
-            showValues();
-        });
+             // Activate the sliders
+             $('#sliders input').on('input change', function () {
+                 chart.options.chart.options3d[this.id] = this.value;
+                 showValues();
+                 chart.redraw(false);
+             });
 
-        $(function () {
-            Highcharts.chart('SaleOrder', {
-                chart: {
-                    type: 'spline'
-                },
-                title: {
-                    text: 'Sale Orders'
-                },
-                xAxis: {
-                    categories: ['November', 'December']
-                },
-                yAxis: {
-                    title: {
-                        text: 'Sale Order Amount'
-                    }
-                    },
-                credits: {
-                    enabled: false
-                },
-                series: [{
-                                name: 'Local',
-                                data: [30822, 140822]
-                            }, {
-                                name: 'Export',
-                                data: [208240, 1408240]
-                }]
-            });
-        });
-    
+             showValues();
+         });
+
+
     </script>
    
 </head>
@@ -194,32 +351,37 @@
 
 
     <div class="row">
-        <div class="col-md-3"><div id="yearlysales" style="min-width: 155px; height: 400px; margin: 0 auto"></div></div>
-        <div class="col-md-6"><div id="Product_Wise_Sales" style="min-width: 155px; height: 400px; margin: 0 auto"></div></div>
-        <div class="col-md-3"><div id="sliders"  style="min-width: 155px; margin-top:100px !important;height: 400px; margin: 0 auto">
-         
-                <table>
-                    <tr>
-                        <td>Alpha Angle</td>
-                        <td><input id="alpha" type="range" min="0" max="45" value="15" /> <span id="alpha-value" class="value"></span></td>
-                    </tr>
-                    <tr>
-                        <td>Beta Angle</td>
-                        <td><input id="beta" type="range" min="-45" max="45" value="15" /> <span id="beta-value" class="value"></span></td>
-                    </tr>
-                    <tr>
-                        <td>Depth</td>
-                        <td><input id="depth" type="range" min="20" max="100" value="50" /> <span id="depth-value" class="value"></span></td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </div>
-    <div>
-        <div class="col-md-7"><div id="Daily_Production" style="min-width: 155px; height: 400px; margin: 0 auto"></div></div>
-        <div class="col-md-5"><div id="SaleOrder" style="min-width: 155px; height: 400px; margin: 0 auto"></div></div>
+        <div class="col-md-6"><div id="Purchase Order" style="min-width: 155px; height: 400px; margin: 0 auto"></div></div>
+        <div class="col-md-6"><div id="SaleOrder" style="min-width: 155px; height: 400px; margin: 0 auto"></div></div>
 
-     </div>
+    </div>
+    <div class="col-md-6"><div id="Sales" style="min-width: 155px; height: 400px; margin: 0 auto"></div></div> 
+    <div class="col-md-6"><div id="Daily_Production" style="min-width: 155px; height: 700px; margin: 0 auto"></div></div> 
+    @*<div>
+    <div class="col-md-7"><div id="Daily_Production" style="min-width: 155px; height: 400px; margin: 0 auto"></div></div> 
+
+    <div class="col-md-6"><div id="Product_Wise_Sales" style="min-width: 155px; height: 400px; margin: 0 auto"></div></div>
+    <div class="col-md-3">
+        <div id="sliders" style="min-width: 155px; margin-top:100px !important;height: 400px; margin: 0 auto">
+
+            <table>
+                <tr>
+                    <td>Alpha Angle</td>
+                    <td><input id="alpha" type="range" min="0" max="45" value="15" /> <span id="alpha-value" class="value"></span></td>
+                </tr>
+                <tr>
+                    <td>Beta Angle</td>
+                    <td><input id="beta" type="range" min="-45" max="45" value="15" /> <span id="beta-value" class="value"></span></td>
+                </tr>
+                <tr>
+                    <td>Depth</td>
+                    <td><input id="depth" type="range" min="20" max="100" value="50" /> <span id="depth-value" class="value"></span></td>
+                </tr>
+            </table>
+        </div>
+    </div>*@
+
+     @*</div>*@
    
 
 </body>
